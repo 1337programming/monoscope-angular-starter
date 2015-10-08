@@ -14,5 +14,3 @@ angular.module('app', [
 }).controller('HomeController', function() {
 	this.message = 'Hello World!';
 });
-
-module.exports = 'asdfasdf';

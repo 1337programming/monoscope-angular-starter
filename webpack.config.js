@@ -1,8 +1,7 @@
 var webpack = require('webpack');
-var glob = require('glob');
 var path = require('path');
 var prod = process.env.prod;
-
+var hot = process.env.hot;
 //Variables
 var plugins = [];
 var dest;
@@ -21,6 +20,9 @@ if (prod) {
 else {
     dest = path.join(__dirname, '.tmp');
 }
+if (hot) {
+
+}
 module.exports = {
     context: __dirname,
     devServer: {
@@ -29,7 +31,7 @@ module.exports = {
         contentBase: './src'
     },
     entry: {
-        app: glob.sync("./src/*{,*/*}.module.js")
+        app: './src/index.js'
     },
     output: {
         path: dest,

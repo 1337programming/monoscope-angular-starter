@@ -6,12 +6,10 @@ var controllerRequire;
 var modules = resetLoad();
 angular.module('loader', modules);
 if (module.hot) {
-  console.log('HI!', controllerRequire.id);
   module.hot.accept([controllerRequire.id], function() {
-    console.log('Accepting!!!');
     resetLoad();
     var injector = angular.element(document.body).injector();
-    var $state = window.$state = injector.get('$state');
+    var $state = injector.get('$state');
     $state.transitionTo($state.current, $state.params, {
       reload: true,
       inherit: false,
@@ -19,7 +17,6 @@ if (module.hot) {
     });
   });
 }
-
 
 function resetLoad() {
   moduleRequire = require.context('./', true, /\.module\.*js$/);

@@ -1,16 +1,15 @@
 'use strict';
 var angular = require('angular');
-module.exports = 'app.home';
+var homeModule = module.exports = {};
+homeModule.name = 'app.home';
 var uiRouter = require('angular-ui-router');
 
-angular.module(module.exports, [uiRouter]).config(function($stateProvider, $urlRouterProvider) {
+angular.module(homeModule.name, [uiRouter]).config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('home', {
     url: '/',
-    controller: homeController,
+    controller: 'HomeController',
     controllerAs: 'home',
-    template: '<h1>{{home.message}}</h1>'
+    templateUrl: '<h1>{{home.message}}</h1>'
   });
   $urlRouterProvider.otherwise('/');
 });
-
-var homeController = require('./home.controller');

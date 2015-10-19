@@ -1,36 +1,47 @@
 'use strict';
 
-var angular = require('angular');
+var angular = require('angular'); 
 var moduleRequire;
+var controllerRequire;
 var modules = resetLoad();
 angular.module('loader', modules);
 if (module.hot) {
-  console.log('HI!');
-  module.hot.accept([moduleRequire.id], function() {
+  console.log('HI!', controllerRequire.id);
+  module.hot.accept([controllerRequire.id], function() {
     console.log('Accepting!!!');
     resetLoad();
     var injector = angular.element(document.body).injector();
-    var $state = injector.get('$state');
+    var $state = window.$state = injector.get('$state');
     $state.transitionTo($state.current, $state.params, {
       reload: true,
       inherit: false,
-      notify: true
+      notify: true 
     });
-    //var $rootScope = injector.get('$rootScope');
   });
 }
 
 
 function resetLoad() {
-  var modules = [];
   moduleRequire = require.context('./', true, /\.module\.*js$/);
-  angular.forEach(moduleRequire.keys(), function(mod) {
-    if (/\.module\.js$/.test(mod)) {
-      var moduleName = moduleRequire(mod);
-      if (moduleName) {
-        modules.push(moduleName);
-      }
-    }
-  });
+  var modules = requireAll(moduleRequire, 'name');
+
+  controllerRequire = require.context('./', true, /\.controller\.*js$/);
+  requireAll(controllerRequire);
+
   return modules;
+}
+
+
+function requireAll(req, prop) {
+  var values = [];
+  angular.forEach(req.keys(), function(key) {
+      var val = req(key);
+      if (prop) {
+        val = val[prop];
+      }
+      if (val) {
+        values.push(val);
+      }
+  });
+  return values;
 }

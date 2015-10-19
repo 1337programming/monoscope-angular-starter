@@ -1,6 +1,10 @@
 'use strict';
 var angular = require('angular');
-module.exports = 'HomeController';
-angular.module('app.home').controller(module.exports, function() {
-  this.message = 'Hello World!';
+var homeController = module.exports = {};
+var mod = angular.module('app.home').controller('HomeController', function($interval) {
+  mod.initHomeController(this, $interval);
 });
+
+mod.initHomeController = function(vm, $interval) {
+	vm.message = 'Hello World!';
+};

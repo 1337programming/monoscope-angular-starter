@@ -1,6 +1,6 @@
 'use strict';
 var angular = require('angular');
-require('./hot-module-replacement');
+require('./loader');
 
 angular.module('app', [
 	require('angular-ui-router'),

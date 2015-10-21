@@ -1,13 +1,11 @@
 'use strict';
 
-var mod = angular.module('app.home').service('homeService', function($interval) {
-	mod.homeService(this, $interval);
-});
+angular.module('app.home').service('homeService', function($interval) {
+  var homeService = this;
 
-module.exports = mod.homeService = function(homeService, $interval) {
-	homeService.message = 'Hello World!';
-	homeService.count = 2;
-	$interval(function() {
-		homeService.count++;
-	}, 1000);
-};
+  homeService.message = 'Service Example';
+  homeService.count = 0;
+  homeService.incrementCount = function() {
+    homeService.count++;
+  };
+});

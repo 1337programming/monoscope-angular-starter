@@ -3,7 +3,7 @@
 angular.module('app.home').factory('HomeFactory', function($interval) {
   var HomeFactory = {};
 
-  HomeFactory.message = 'Factory Example';
+  HomeFactory.message = 'Factory';
   HomeFactory.count = 0;
   HomeFactory.incrementCount = function() {
     HomeFactory.count++;

@@ -1,10 +1,7 @@
 'use strict';
 
-var mod = angular.module('app.home').controller('HomeController', function(homeService, HomeFactory) {
-  mod.HomeController(this, homeService, HomeFactory);
-});
-
-mod.HomeController = function(vm, homeService, HomeFactory) {
+angular.module('app.home').controller('HomeController', function(homeService, HomeFactory) {
+  var vm = this;
   vm.homeService = homeService;
   vm.HomeFactory = HomeFactory;
-};
+});

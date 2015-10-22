@@ -6,13 +6,36 @@ var controllerRequire;
 var templateRequire;
 var serviceRequire;
 var factoryRequire;
+var filterRequire;
+
 if (module.hot) {
   var origAngularModule = angular.extend(angular.module, {});
   angular.module = function(name, requires, configFn) {
     var mod = origAngularModule(name, requires, configFn);
-
+    var i = 0;
     mod.serviceCache = mod.serviceCache || {};
-    var origAngularService = angular.extend(mod.service, {});
+
+    mod.origAngularController = mod.origAngularController || angular.extend(mod.controller, {});
+    mod.controller = function(controllerName, controllerFunction) {
+      var self = this;
+      var exists = !!mod.serviceCache[controllerName];
+      mod.serviceCache[controllerName] = controllerFunction;
+      if (exists && getInjector()) {
+        refreshState();
+      }
+      else if (!exists) {
+        mod.origAngularController(controllerName, function($scope, $injector) {
+          var vm = this;
+          
+          $injector.invoke(mod.serviceCache[controllerName], vm, {
+            '$scope': $scope
+          });
+        });
+      }
+      return mod;
+    };
+
+    mod.origAngularService = mod.origAngularService || angular.extend(mod.service, {});
     mod.service = function(recipeName, serviceFunction) {
       var exists = mod.serviceCache[recipeName];
       if (exists && getInjector()) {
@@ -25,7 +48,7 @@ if (module.hot) {
         refreshState();
       }
       else {
-        origAngularService(recipeName, serviceFunction);
+        mod.origAngularService(recipeName, serviceFunction);
         mod.config(function($provide) {
           $provide.decorator(recipeName, function($delegate) {
             $delegate.resetObject = function() {
@@ -44,7 +67,7 @@ if (module.hot) {
       return mod;
     };
 
-    var origAngularFactory = angular.extend(mod.factory, {});
+    mod.origAngularFactory = mod.origAngularFactory || angular.extend(mod.factory, {});
     mod.factory = function(recipeName, factoryFunction) {
       var exists = mod.serviceCache[recipeName];
       if (exists && getInjector()) {
@@ -55,7 +78,7 @@ if (module.hot) {
         refreshState();
       }
       else {
-        origAngularFactory(recipeName, factoryFunction);
+        mod.origAngularFactory(recipeName, factoryFunction);
         mod.config(function($provide) {
           $provide.decorator(recipeName, function($delegate) {
             $delegate.resetObject = function() {
@@ -69,6 +92,25 @@ if (module.hot) {
             mod.serviceCache[recipeName] = $delegate;
             return mod.serviceCache[recipeName];
           });
+        });
+      }
+      return mod;
+    };
+
+    mod.origAngularFilter = mod.origAngularFilter || angular.extend(mod.filter, {});
+    mod.filter = function(recipeName, filterFunction) {
+      var exists = !!mod.serviceCache[recipeName];
+      if (exists && getInjector()) {
+        mod.serviceCache[recipeName] = getInjector().invoke(filterFunction);
+        refreshState();
+      }
+      else {
+        mod.origAngularFilter(recipeName, function($injector) {
+          mod.serviceCache[recipeName] = $injector.invoke(filterFunction, this);
+          var func = function() {
+            return mod.serviceCache[recipeName].apply(this, arguments);
+          };
+          return func;
         });
       }
       return mod;
@@ -87,12 +129,6 @@ angular.module('loader', modules).run(function($templateCache) {
 
 if (module.hot) {
 
-  //Controller
-  module.hot.accept([controllerRequire.id], function() {
-    resetLoad();
-    refreshState();
-  });
-
   //Template
   module.hot.accept([templateRequire.id], function() {
     resetLoad();
@@ -104,8 +140,8 @@ if (module.hot) {
     refreshState();
   });
 
-  //Service, Factory
-  module.hot.accept([serviceRequire.id, factoryRequire.id], function() {
+  //Service, Factory, Controller
+  module.hot.accept([serviceRequire.id, factoryRequire.id, controllerRequire.id, filterRequire.id], function() {
     resetLoad();
   });
 }
@@ -124,6 +160,9 @@ function resetLoad() {
 
   factoryRequire = require.context('./', true, /\.factory\.js$/);
   requireAll(factoryRequire);
+
+  filterRequire = require.context('./', true, /\.filter\.js$/);
+  requireAll(filterRequire);  
   return modules;
 }
 

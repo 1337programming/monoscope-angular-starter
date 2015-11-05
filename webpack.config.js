@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var prod = process.env.prod;
 var hot = process.env.hot;
+var monoscope = process.env.monoscope;
 //Variables
 var plugins = [];
 var dest;
@@ -20,8 +21,10 @@ if (prod) {
 else {
     dest = path.join(__dirname, '.tmp');
 }
-if (hot) {
 
+if (monoscope) {
+    var monoscopeAngular = require('monoscope-angular');
+    monoscopeAngular.run();
 }
 module.exports = {
     context: __dirname,

@@ -4,14 +4,16 @@
   "description": "Angular Starter Project for the monoscope-angular shortcut toolkit.",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "monoscope=true webpack-dev-server --hot --inline",
+    "prod": "prod=true webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thomaswmanion/monoscope-angular-starter.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tom Manion",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/thomaswmanion/monoscope-angular-starter/issues"
@@ -26,6 +28,7 @@
     "html-loader": "^0.3.0",
     "html-minifier": "^0.8.0",
     "minimatch": "^3.0.0",
+    "monoscope-angular": "^1.0.0",
     "ng-annotate-webpack-plugin": "^0.1.2",
     "node-sass": "^3.3.3",
     "sass-loader": "^3.0.0",

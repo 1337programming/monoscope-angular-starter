@@ -1,6 +1,6 @@
 dist/
 .DS_Store
-
+.idea
 .tmp/
 node_modules/
 npm-debug.log

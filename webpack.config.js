@@ -49,7 +49,7 @@ module.exports = {
     loaders: [
       {test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel'},
       {test: /\.scss$/, loader: 'style!css!sass'},
-      {test: /\.html$/, loader: 'file?name=[path][name].[ext]'},
+      {test: /\.html$/, loader: 'file'},
       {test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/, loader: 'file'}
     ]
   },

@@ -23,7 +23,7 @@ angular.module('loader', modules).run(function($templateCache) {
 
 if (module.hot) {
   //Decline Configuration Phase Component Types
-  module.hot.decline([moduleRequire.id, configurationRequire.id]);
+  module.hot.decline([configurationRequire.id]);
 
   //Template
   module.hot.accept([templateRequire.id], function() {
@@ -32,7 +32,7 @@ if (module.hot) {
   });
 
   //Service, Factory, Controller, Filter, Directive
-  module.hot.accept([serviceRequire.id, factoryRequire.id, controllerRequire.id, filterRequire.id, directiveRequire.id], function() {
+  module.hot.accept([moduleRequire.id, serviceRequire.id, factoryRequire.id, controllerRequire.id, filterRequire.id, directiveRequire.id], function() {
     resetLoad();
   });
 }

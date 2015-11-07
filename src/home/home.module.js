@@ -5,7 +5,7 @@ module.exports = angular.module('app.home', []).config(function($stateProvider, 
     url: '/',
     controller: 'HomeController',
     controllerAs: 'home',
-    templateUrl: './home/home.html'
+    templateUrl: require('./home.html')
   });
   $urlRouterProvider.otherwise('/');
 });

@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var prod = process.env.prod;
 var hot = process.env.hot;
-var monoscope = process.env.monoscope;
+var useMonoscope = process.env.monoscope;
 //Variables
 var plugins = [];
 var dest;
@@ -21,9 +21,21 @@ if (prod) {
   dest = path.join(__dirname, '.tmp');
 }
 
-if (monoscope) {
+if (useMonoscope) {
   var monoscopeAngular = require('monoscope-angular');
-  monoscopeAngular.run();
+  var shortcuts = [{
+    name: 'ESLint',
+    action: function() {
+      var eslint = require('eslint').linter;
+      eslint.verify()
+    }
+  },{
+    name: 'Run Unit Tests',
+    action: function() {
+      //Write some unit tests!!
+    }
+  }].concat(monoscopeAngular.getShortcuts());
+  require('monoscope').run(shortcuts);
 }
 module.exports = {
   context: __dirname,
@@ -49,7 +61,7 @@ module.exports = {
     loaders: [
       {test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel'},
       {test: /\.scss$/, loader: 'style!css!sass'},
-      {test: /\.html$/, loader: 'file'},
+      {test: /\.html$/, loader: 'html'},
       {test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/, loader: 'file'}
     ]
   },

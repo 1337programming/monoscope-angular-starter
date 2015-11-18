@@ -1,3 +1,9 @@
 body {
-	background-color: #DDD;
+	background-color: lightgreen;
+}
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+.img-responsive {
+	width: 100%;
+	height: auto;
 }

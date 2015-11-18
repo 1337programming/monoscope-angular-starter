@@ -15,11 +15,12 @@ if (module.hot) {
 
 var modules = resetLoad();
 angular.module('loader', modules).run(function($templateCache) {
+  console.log(templateRequire.keys());
   angular.forEach(templateRequire.keys(), function(key) {
     var val = templateRequire(key);
     $templateCache.put(key, val);
   });
-})
+});
 
 if (module.hot) {
   //Decline Configuration Phase Component Types

@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var prod = process.env.prod;
 var hot = process.env.hot;
-var useMonoscope = process.env.monoscope;
+//var useMonoscope = process.env.monoscope;
 //Variables
 var plugins = [];
 var dest;
@@ -21,7 +21,13 @@ if (prod) {
   dest = path.join(__dirname, '.tmp');
 }
 
-if (useMonoscope) {
+var bowerResolvePlugin = new webpack.ResolverPlugin(
+      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+  );
+
+plugins.push(bowerResolvePlugin);
+
+/*if (useMonoscope) {
   var monoscopeAngular = require('monoscope-angular');
   var shortcuts = [{
     name: 'ESLint',
@@ -36,7 +42,7 @@ if (useMonoscope) {
     }
   }].concat(monoscopeAngular.getShortcuts());
   require('monoscope').run(shortcuts);
-}
+}*/
 module.exports = {
   context: __dirname,
   devServer: {
@@ -55,7 +61,6 @@ module.exports = {
   },
   resolve: {
     root: './bower_components'
-
   },
   module: {
     loaders: [

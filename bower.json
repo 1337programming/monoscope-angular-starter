@@ -1,0 +1,21 @@
+{
+  "name": "monoscope-angular-starter",
+  "description": "Angular Starter Project for the monoscope-angular shortcut toolkit.",
+  "main": "src/index.html",
+  "license": "ISC",
+  "homepage": "https://github.com/1337programming/monoscope-angular-starter",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "~1.4.7",
+    "angular-resource": "~1.4.7",
+    "angular": "~1.4.7",
+    "angular-ui-router": "~0.2.15"
+  }
+}

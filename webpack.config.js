@@ -21,6 +21,12 @@ if (prod) {
   dest = path.join(__dirname, '.tmp');
 }
 
+var bowerResolvePlugin = new webpack.ResolverPlugin(
+      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+  );
+
+plugins.push(bowerResolvePlugin);
+
 if (useMonoscope) {
   var monoscopeAngular = require('monoscope-angular');
   var shortcuts = [{
@@ -37,6 +43,7 @@ if (useMonoscope) {
   }].concat(monoscopeAngular.getShortcuts());
   require('monoscope').run(shortcuts);
 }
+
 module.exports = {
   context: __dirname,
   devServer: {
@@ -55,7 +62,6 @@ module.exports = {
   },
   resolve: {
     root: './bower_components'
-
   },
   module: {
     loaders: [
@@ -67,7 +73,6 @@ module.exports = {
   },
   plugins: plugins
 };
-
 
 //Setup build
 if (prod) {

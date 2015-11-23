@@ -40,8 +40,6 @@
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
-    "angular": "^1.4.7",
-    "angular-ui-router": "^0.2.15",
     "bootstrap": "git://github.com/twbs/bootstrap.git#v4-dev",
     "monoscope": "^0.2.5"
   }

@@ -1,0 +1,6 @@
+@import "../../node_modules/compass-mixins/lib/_compass.scss";
+@import "../options.scss";
+#top-nav {
+	background-color: scale-lightness($main-color, -17%);
+	font-weight: 600;
+}

@@ -15,7 +15,6 @@ if (module.hot) {
 
 var modules = resetLoad();
 angular.module('loader', modules).run(function($templateCache) {
-  console.log(templateRequire.keys());
   angular.forEach(templateRequire.keys(), function(key) {
     var val = templateRequire(key);
     $templateCache.put(key, val);
@@ -45,7 +44,7 @@ function resetLoad() {
   controllerRequire = require.context('./', true, /\.controller\.js$/);
   requireAll(controllerRequire);
 
-  templateRequire = require.context('./', true, /\.html$/);
+  templateRequire = require.context('./', true, /^((?!index).)*\.html$/);
 
   serviceRequire = require.context('./', true, /\.service\.js$/);
   requireAll(serviceRequire);

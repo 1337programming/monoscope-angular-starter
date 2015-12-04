@@ -1,9 +1,20 @@
-body {
-	background-color: lightgreen;
-}
+@import "./options.scss";
+
+$body-bg: $main-color;
+$body-color: $main-text-color;
+
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 .img-responsive {
 	width: 100%;
 	height: auto;
+}
+
+.ui-view-div {
+	color: rgba(255,255,255,.87);
+}
+
+.secondary {
+	background-color: $secondary-color;
+	color: $secondary-text-color;
 }

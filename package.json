@@ -1,7 +1,7 @@
 {
-  "name": "monoscope-angular-starter",
+  "name": "my-blog",
   "version": "1.0.0",
-  "description": "Angular Starter Project for the monoscope-angular shortcut toolkit.",
+  "description": "Source code for my blog.",
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thomaswmanion/monoscope-angular-starter.git"
+    "url": "git+https://github.com/thomaswmanion/my-blog.git"
   },
   "keywords": [],
   "author": "Tom Manion",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/thomaswmanion/monoscope-angular-starter/issues"
+    "url": "https://github.com/thomaswmanion/my-blog/issues"
   },
-  "homepage": "https://github.com/thomaswmanion/monoscope-angular-starter#readme",
+  "homepage": "https://github.com/thomaswmanion/my-blog#readme",
   "devDependencies": {
     "babel-core": "^5.8.25",
     "babel-loader": "^5.3.2",
@@ -30,10 +30,12 @@
     "glob": "^5.0.15",
     "html-loader": "^0.3.0",
     "html-minifier": "^0.8.0",
+    "loader-utils": "^0.2.12",
     "minimatch": "^3.0.0",
     "monoscope-angular": "^1.0.0",
     "ng-annotate-webpack-plugin": "^0.1.2",
     "node-sass": "^3.3.3",
+    "raw-loader": "^0.5.1",
     "sass-loader": "^3.0.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.6",
@@ -41,6 +43,7 @@
   },
   "dependencies": {
     "bootstrap": "git://github.com/twbs/bootstrap.git#v4-dev",
+    "compass-mixins": "^0.12.7",
     "monoscope": "^0.2.5"
   }
 }

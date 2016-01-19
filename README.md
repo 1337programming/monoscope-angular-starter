@@ -20,7 +20,7 @@ To build the application, type the command: `npm run prod`
 ## Architecture
 The application-wide module is found in index.js. 
 Index.js is to contain all external dependencies, as well as the `loader` module.
-The loader module is responsible for requiring all angular 1 components.
+The loader module is responsible for requiring all angular 1 components. 
 
 All modules that export the module object are in the dependency list of `loader`. For example:
 

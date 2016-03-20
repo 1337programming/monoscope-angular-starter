@@ -1,4 +1,4 @@
-describe('CartController', function() {
+describe('CartControllerTwo', function() {
 
   var scope, $rootScope, $controller, self;
 

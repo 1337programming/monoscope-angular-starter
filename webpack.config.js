@@ -46,6 +46,7 @@ if (useMonoscope) {
 
 module.exports = {
   context: __dirname,
+  devtool: 'source-map',
   devServer: {
     inline: true,
     colors: true,
@@ -58,14 +59,14 @@ module.exports = {
   },
   output: {
     path: dest,
-    filename: 'scripts.js'
+    filename: '[name].js'
   },
   resolve: {
     root: './bower_components'
   },
   module: {
     loaders: [
-      {test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel'},
+      {test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader'},
       {test: /\.scss$/, loader: 'style!css!sass'},
       {test: /\.html$/, loader: 'html'},
       {test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/, loader: 'file'}

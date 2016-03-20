@@ -1,14 +1,15 @@
 'use strict';
 require('./index.scss');
 require('angular');
+require('../bower_components/angular-ui-router/release/angular-ui-router');
 require('angular-resource');
 require('angular-animate');
 
 angular.module('app', [
-	require('angular-ui-router'),
-    'ngResource',
-    'ngAnimate',
-	'loader'
+  'ui.router',
+  'ngResource',
+  'ngAnimate',
+  'loader'
 ]);
 
 require('./loader');

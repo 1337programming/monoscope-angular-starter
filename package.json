@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "karma start karma.config.js",
-    "dev": "monoscope=true webpack-dev-server --hot --inline",
+    "dev": "webpack-dev-server --hot --inline",
     "prod": "prod=true webpack"
   },
   "repository": {
@@ -43,7 +43,6 @@
     "karma-spec-reporter": "0.0.24",
     "karma-webpack": "^1.7.0",
     "minimatch": "^3.0.0",
-    "monoscope-angular": "^1.0.0",
     "ng-annotate-webpack-plugin": "^0.1.2",
     "node-sass": "^3.3.3",
     "phantomjs-polyfill": "0.0.2",
@@ -54,7 +53,6 @@
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
-    "bootstrap": "git://github.com/twbs/bootstrap.git#v4-dev",
-    "monoscope": "^0.2.5"
+    "bootstrap": "git://github.com/twbs/bootstrap.git#v4-dev"
   }
 }

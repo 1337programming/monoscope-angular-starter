@@ -2,7 +2,6 @@ var webpack = require('webpack');
 var path = require('path');
 var prod = process.env.prod;
 var hot = process.env.hot;
-var useMonoscope = process.env.monoscope;
 //Variables
 var plugins = [];
 var dest;
@@ -26,23 +25,6 @@ var bowerResolvePlugin = new webpack.ResolverPlugin(
   );
 
 plugins.push(bowerResolvePlugin);
-
-if (useMonoscope) {
-  var monoscopeAngular = require('monoscope-angular');
-  var shortcuts = [{
-    name: 'ESLint',
-    action: function() {
-      var eslint = require('eslint').linter;
-      eslint.verify()
-    }
-  },{
-    name: 'Run Unit Tests',
-    action: function() {
-      //Write some unit tests!!
-    }
-  }].concat(monoscopeAngular.getShortcuts());
-  require('monoscope').run(shortcuts);
-}
 
 module.exports = {
   context: __dirname,

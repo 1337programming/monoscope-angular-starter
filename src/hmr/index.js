@@ -1,14 +1,14 @@
 'use strict';
 var hmr = module.exports = {};
 
-hmr.modifyAngular = function() {
+hmr.modifyAngular = function () {
   var origAngularModule = angular.extend(angular.module, {});
-  angular.module = function(name, requires, configFn) {
+  angular.module = function (name, requires, configFn) {
     var mod = origAngularModule(name, requires, configFn);
     mod.serviceCache = mod.serviceCache || {};
 
     mod.origAngularController = mod.origAngularController || angular.extend(mod.controller, {});
-    mod.controller = function(controllerName, controllerFunction) {
+    mod.controller = function (controllerName, controllerFunction) {
       var self = this;
       var exists = !!mod.serviceCache[controllerName];
       mod.serviceCache[controllerName] = controllerFunction;
@@ -16,7 +16,7 @@ hmr.modifyAngular = function() {
         refreshState();
       }
       else if (!exists) {
-        mod.origAngularController(controllerName, function($scope, $injector) {
+        mod.origAngularController(controllerName, function ($scope, $injector) {
           var vm = this;
 
           $injector.invoke(mod.serviceCache[controllerName], vm, {
@@ -28,7 +28,7 @@ hmr.modifyAngular = function() {
     };
 
     mod.origAngularService = mod.origAngularService || angular.extend(mod.service, {});
-    mod.service = function(recipeName, serviceFunction) {
+    mod.service = function (recipeName, serviceFunction) {
       var exists = mod.serviceCache[recipeName];
       if (exists && getInjector()) {
         mod.serviceCache[recipeName].resetObject();
@@ -41,9 +41,9 @@ hmr.modifyAngular = function() {
       }
       else {
         mod.origAngularService(recipeName, serviceFunction);
-        mod.config(function($provide) {
-          $provide.decorator(recipeName, function($delegate) {
-            $delegate.resetObject = function() {
+        mod.config(function ($provide) {
+          $provide.decorator(recipeName, function ($delegate) {
+            $delegate.resetObject = function () {
               for (var prop in this) {
                 if (prop !== 'resetObject') {
                   delete this[prop];
@@ -59,7 +59,7 @@ hmr.modifyAngular = function() {
     };
 
     mod.origAngularFactory = mod.origAngularFactory || angular.extend(mod.factory, {});
-    mod.factory = function(recipeName, factoryFunction) {
+    mod.factory = function (recipeName, factoryFunction) {
       var exists = mod.serviceCache[recipeName];
       if (exists && getInjector()) {
         mod.serviceCache[recipeName].resetObject();
@@ -70,9 +70,9 @@ hmr.modifyAngular = function() {
       }
       else {
         mod.origAngularFactory(recipeName, factoryFunction);
-        mod.config(function($provide) {
-          $provide.decorator(recipeName, function($delegate) {
-            $delegate.resetObject = function() {
+        mod.config(function ($provide) {
+          $provide.decorator(recipeName, function ($delegate) {
+            $delegate.resetObject = function () {
               for (var prop in this) {
                 if (prop !== 'resetObject') {
                   delete this[prop];
@@ -89,16 +89,16 @@ hmr.modifyAngular = function() {
     };
 
     mod.origAngularFilter = mod.origAngularFilter || angular.extend(mod.filter, {});
-    mod.filter = function(recipeName, filterFunction) {
+    mod.filter = function (recipeName, filterFunction) {
       var exists = !!mod.serviceCache[recipeName];
       if (exists && getInjector()) {
         mod.serviceCache[recipeName] = getInjector().invoke(filterFunction);
         refreshState();
       }
       else {
-        mod.origAngularFilter(recipeName, function($injector) {
+        mod.origAngularFilter(recipeName, function ($injector) {
           mod.serviceCache[recipeName] = $injector.invoke(filterFunction, this);
-          var func = function() {
+          var func = function () {
             return mod.serviceCache[recipeName].apply(this, arguments);
           };
           return func;
@@ -108,7 +108,7 @@ hmr.modifyAngular = function() {
     };
 
     mod.origAngularDirective = mod.origAngularDirective || angular.extend(mod.directive, {});
-    mod.directive = function(recipeName, directiveFunction) {
+    mod.directive = function (recipeName, directiveFunction) {
       var exists = !!mod.serviceCache[recipeName];
       if (exists && getInjector()) {
         mod.serviceCache[recipeName].resetObject();
@@ -117,9 +117,9 @@ hmr.modifyAngular = function() {
         refreshState();
       }
       else {
-        mod.origAngularDirective(recipeName, function($injector) {
+        mod.origAngularDirective(recipeName, function ($injector) {
           var obj = $injector.invoke(directiveFunction, this);
-          obj.resetObject = function() {
+          obj.resetObject = function () {
             for (var prop in this) {
               console.log(prop);
               if (prop !== 'resetObject' && prop !== 'priority' && prop !== 'index' && prop !== 'name' && prop !== 'require' && prop !== 'restrict' && prop !== '$$bindings' && prop !== '$$moduleName') {
@@ -139,16 +139,14 @@ hmr.modifyAngular = function() {
 };
 
 
-hmr.acceptTemplateChange = function(templateRequire) {
+hmr.acceptTemplateChange = function (templateRequire) {
   var $templateCache = getInjector().get('$templateCache');
-  angular.forEach(templateRequire.keys(), function(key) {
+  angular.forEach(templateRequire.keys(), function (key) {
     var val = templateRequire(key);
     $templateCache.put(key, val);
   });
   refreshState();
 };
-
-
 
 
 //Private

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = angular.module('cart', []).config(function($stateProvider, $urlRouterProvider) {
+module.exports = angular.module('cart', []).config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('cart', {
     url: '/cart',
     controller: 'CartController',

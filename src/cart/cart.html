@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-4" ng-repeat="item in ::cart.CartFactory.items">
             <div class="card">
-                <img class="card-img-top img-responsive" src="{{::item.image}}" alt="{{::item.name}}">
+                <img class="card-img-top img-responsive" ng-src="../images/{{::item.imageName}}" alt="{{::item.name}}">
                 <div class="card-block">
                     <h4 class="card-title">{{::item.name}}</h4>
                     <p class="card-text">Cost: {{::item.cost | currency}}</p>

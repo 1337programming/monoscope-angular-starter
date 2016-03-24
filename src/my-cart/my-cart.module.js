@@ -1,5 +1,5 @@
 'use strict';
 
-angular.module('myCart', []).config(function() {
+angular.module('myCart', []).config(function () {
 
 });

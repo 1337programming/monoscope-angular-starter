@@ -14,9 +14,9 @@ if (module.hot) {
 }
 
 var modules = resetLoad();
-angular.module('loader', modules).run(function($templateCache) {
+angular.module('loader', modules).run(function ($templateCache) {
   console.log(templateRequire.keys());
-  angular.forEach(templateRequire.keys(), function(key) {
+  angular.forEach(templateRequire.keys(), function (key) {
     var val = templateRequire(key);
     $templateCache.put(key, val);
   });
@@ -27,13 +27,13 @@ if (module.hot) {
   module.hot.decline([configurationRequire.id]);
 
   //Template
-  module.hot.accept([templateRequire.id], function() {
+  module.hot.accept([templateRequire.id], function () {
     resetLoad();
     require('./hmr').acceptTemplateChange(templateRequire);
   });
 
   //Service, Factory, Controller, Filter, Directive
-  module.hot.accept([moduleRequire.id, serviceRequire.id, factoryRequire.id, controllerRequire.id, filterRequire.id, directiveRequire.id], function() {
+  module.hot.accept([moduleRequire.id, serviceRequire.id, factoryRequire.id, controllerRequire.id, filterRequire.id, directiveRequire.id], function () {
     resetLoad();
   });
 }
@@ -67,7 +67,7 @@ function resetLoad() {
 
 function requireAll(req, prop) {
   var values = [];
-  angular.forEach(req.keys(), function(key) {
+  angular.forEach(req.keys(), function (key) {
     var val = req(key);
     if (prop) {
       val = val[prop];

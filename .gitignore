@@ -2,6 +2,7 @@ dist/
 .DS_Store
 .idea
 .tmp/
+build/
 node_modules/
 bower_components/
 npm-debug.log

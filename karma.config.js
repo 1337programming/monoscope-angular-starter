@@ -5,11 +5,10 @@ webpack_config.entry = {};
 module.exports = function(config) {
   'use strict';
   config.set({
-    background: false,
-    basePath: '.',
-    frameworks: ['mocha', 'chai', 'sinon', 'chai-as-promised'],
+    frameworks: ['mocha', 'sinon', 'chai-as-promised', 'chai'],
 
     files: [
+      __dirname + '/node_modules/phantomjs-polyfill/bind-polyfill.js',
       __dirname + '/tests/index.js'
     ],
 
@@ -17,24 +16,40 @@ module.exports = function(config) {
       './tests/index.js': ['webpack', 'sourcemap']
     },
 
-    client: {
-      mocha: {
-        timeout: 15000
-      }
+    coverageReporter: {
+      type: 'html',
+      dir: 'build/coverage'
     },
 
-    // web server port
-    port: process.env['KARMA_PORT'] || 9000,
+    reporters: ['spec', 'coverage'],
 
-    // cli runner port
-    runnerPort: process.env['KARMA_RUNNER_PORT'] || 9100,
+    webpack: {
+      // webpack configuration
+      module: {
+        loaders: [
+          {test: /\.css$/, loader: 'style!css'},
+          {test: /\.scss$/, loader: 'style!css!sass'},
+          {test: /\.html$/, loader: 'html'},
+          {test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/, loader: 'file'}
+        ]
 
-    webpack: webpack_config,
+      },
+      resolve: {
+        modulesDirectories: [
+          '',
+          'src',
+          'bower_components',
+          'node_modules'
+        ]
+      }
+    },
 
     webpackMiddleware: {
       // webpack-dev-middleware configuration
       // i. e.
       noInfo: true
-    }
+    },
+
+    browsers: ['PhantomJS']
   });
 };
